@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASICI-SEIC 2026 — Conference Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F0E8;
+    --bg2: #EDE7D9;
+    --ink: #1A1208;
+    --ink-muted: #5A4E3A;
+    --gold: #C8922A;
+    --gold-light: #E8B84B;
+    --rust: #B84B2A;
+    --teal: #1E6B6B;
+    --slate: #3A4E5A;
+
+    --sa: #1E6B6B;    /* Session A – Flames & Fundamentals */
+    --sb: #7A3B6E;    /* Session B – Fuels & Environment */
+    --sc: #B84B2A;    /* Session C – Propulsion & Technology */
+
+    --sa-light: #E0F0EF;
+    --sb-light: #F2E5F0;
+    --sc-light: #FAEAE4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ─── HEADER ──────────────────────────────────────────── */
+  .header {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 52px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(200,146,42,.06) 40px, rgba(200,146,42,.06) 41px),
+      repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(200,146,42,.04) 40px, rgba(200,146,42,.04) 41px);
+  }
+  .header-inner { position: relative; z-index: 1; }
+  .conf-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .conf-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+  .conf-title span { color: var(--gold-light); }
+  .conf-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 2vw, 20px);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(245,240,232,.7);
+    margin-top: 8px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 40px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .meta-value { font-weight: 500; font-size: 13px; color: var(--bg); }
+
+  .gold-rule { height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent); margin: 0 60px; }
+
+  /* ─── SESSION LEGEND ─────────────────────────────────── */
+  .legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    padding: 20px 60px;
+    background: var(--ink);
+    border-top: 1px solid rgba(200,146,42,.2);
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--bg);
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── DAY TABS ───────────────────────────────────────── */
+  .tabs {
+    display: flex;
+    border-bottom: 2px solid var(--gold);
+    background: var(--bg2);
+    padding: 0 60px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 14px 24px;
+    border: none; background: none; cursor: pointer;
+    color: var(--ink-muted);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+  }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 700; }
+
+  /* ─── DAY CONTENT ────────────────────────────────────── */
+  .day-panel { display: none; padding: 0 60px 60px; }
+  .day-panel.active { display: block; }
+
+  .day-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--ink);
+    padding: 36px 0 12px;
+    border-bottom: 1px solid rgba(26,18,8,.12);
+    margin-bottom: 28px;
+  }
+  .day-heading span {
+    font-size: 13px; font-weight: 400; font-style: italic;
+    color: var(--ink-muted); margin-left: 12px;
+  }
+
+  /* ─── TIMELINE ROWS ──────────────────────────────────── */
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 0 24px;
+    margin-bottom: 6px;
+  }
+  .time-col {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    color: var(--gold);
+    padding-top: 14px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .event-col { flex: 1; }
+
+  /* ─── PLENARY / SPECIAL EVENTS ───────────────────────── */
+  .event-block {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 4px;
+    padding: 14px 20px;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .event-block.plenary {
+    background: linear-gradient(135deg, #2A1E08, #3A2E18);
+    border-left: 4px solid var(--gold);
+  }
+  .event-block.special {
+    background: linear-gradient(135deg, var(--teal), #154E4E);
+    border-left: 4px solid var(--gold-light);
+  }
+  .event-block.break {
+    background: var(--bg2);
+    color: var(--ink-muted);
+    border: 1px solid rgba(26,18,8,.1);
+    font-style: italic;
+  }
+  .event-block.social {
+    background: linear-gradient(135deg, var(--rust), #8B3820);
+    border-left: 4px solid var(--gold-light);
+  }
+  .event-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px;
+    background: rgba(200,146,42,.25);
+    color: var(--gold-light);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .event-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: .5px;
+  }
+  .event-speaker {
+    font-size: 12px; font-style: italic;
+    opacity: .75; margin-top: 2px;
+  }
+
+  /* ─── PARALLEL SESSIONS GRID ─────────────────────────── */
+  .parallel-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 20px 0 10px;
+  }
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 900px) { .sessions-grid { grid-template-columns: 1fr; } }
+
+  .session-card {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(26,18,8,.1);
+  }
+  .session-header {
+    padding: 12px 16px;
+    color: white;
+  }
+  .session-header.sa { background: var(--sa); }
+  .session-header.sb { background: var(--sb); }
+  .session-header.sc { background: var(--sc); }
+
+  .session-room {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    opacity: .75; margin-bottom: 4px;
+  }
+  .session-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700; line-height: 1.3;
+  }
+  .session-time-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 1px;
+    margin-top: 6px; opacity: .8;
+  }
+
+  .papers-list {
+    background: white;
+    padding: 10px 0;
+  }
+  .paper-item {
+    display: flex; gap: 10px;
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(26,18,8,.05);
+    transition: background .15s;
+  }
+  .paper-item:last-child { border-bottom: none; }
+  .paper-item:hover { background: #F8F5F0; }
+
+  .paper-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    min-width: 28px; padding-top: 1px;
+    color: var(--ink-muted);
+  }
+  .paper-num.sa { color: var(--sa); }
+  .paper-num.sb { color: var(--sb); }
+  .paper-num.sc { color: var(--sc); }
+
+  .paper-body { flex: 1; }
+  .paper-title {
+    font-size: 11.5px; font-weight: 500;
+    line-height: 1.4; color: var(--ink);
+    text-transform: capitalize;
+  }
+  .paper-title.upper { text-transform: none; }
+  .paper-authors {
+    font-size: 10.5px; color: var(--ink-muted);
+    margin-top: 2px; font-style: italic;
+  }
+  .paper-topic {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    margin-top: 4px; padding: 1px 6px; border-radius: 2px;
+    background: var(--bg2); color: var(--ink-muted);
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  .footer {
+    background: var(--ink);
+    color: rgba(245,240,232,.5);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px; letter-spacing: .5px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  .footer strong { color: var(--gold); }
+
+  /* ─── DIVIDER ────────────────────────────────────────── */
+  .slot-divider {
+    border: none;
+    border-top: 1px dashed rgba(26,18,8,.12);
+    margin: 16px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="header">
+  <div class="header-inner">
+    <p class="conf-tag">Scientific Program — Full Schedule</p>
+    <h1 class="conf-title">ASICI·SEIC<br><span>2026</span></h1>
+    <p class="conf-sub">Italian and Spanish Combustion Meeting — Joint Conference</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Dates</span>
+        <span class="meta-value">26 – 29 May 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Venue</span>
+        <span class="meta-value">Villa Fondi, Sorrento (IT)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Oral Presentations</span>
+        <span class="meta-value">72 contributions</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Parallel Tracks</span>
+        <span class="meta-value">3 simultaneous sessions</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="gold-rule"></div>
+
+<!-- ═══════════════ LEGEND ═══════════════ -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--sa)"></div>
+    Track A — Flame Dynamics &amp; Fundamentals
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--sb)"></div>
+    Track B — Alternative Fuels, Emissions &amp; Environment
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:var(--sc)"></div>
+    Track C — Propulsion, Technology &amp; Advanced Combustion
+  </div>
+</div>
+
+<!-- ═══════════════ TABS ═══════════════ -->
+<nav class="tabs">
+  <button class="tab-btn" onclick="showDay('tue')">Tuesday 26 May</button>
+  <button class="tab-btn active" onclick="showDay('wed')">Wednesday 27 May</button>
+  <button class="tab-btn" onclick="showDay('thu')">Thursday 28 May</button>
+  <button class="tab-btn" onclick="showDay('fri')">Friday 29 May</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════
+     TUESDAY 26 MAY
+══════════════════════════════════════════════════════ -->
+<section class="day-panel" id="day-tue">
+  <h2 class="day-heading">Tuesday, 26 May 2026 <span>Arrival &amp; Welcome</span></h2>
+
+  <div class="timeline-row">
+    <div class="time-col">18:00–19:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div>
+          <div class="event-name">Welcome Cocktail</div>
+          <div class="event-speaker">Villa Fondi — Terrace</div>
+        </div>
+        <div class="event-tag">Social</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     WEDNESDAY 27 MAY
+══════════════════════════════════════════════════════ -->
+<section class="day-panel active" id="day-wed">
+  <h2 class="day-heading">Wednesday, 27 May 2026 <span>Opening Day</span></h2>
+
+  <div class="timeline-row">
+    <div class="time-col">08:00–09:00</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Registration &amp; Badge Collection</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">09:00–09:30</div>
+    <div class="event-col">
+      <div class="event-block special">
+        <div>
+          <div class="event-name">Opening Ceremony</div>
+          <div class="event-speaker">Welcome addresses by Conference Chairs</div>
+        </div>
+        <div class="event-tag">Plenary</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">09:30–10:00</div>
+    <div class="event-col">
+      <div class="event-block plenary">
+        <div>
+          <div class="event-name">Plenary Lecture — Maria Alzueta</div>
+          <div class="event-speaker">Chemical Kinetics and Renewable Fuels</div>
+        </div>
+        <div class="event-tag">Keynote</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">10:00–10:15</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Break &amp; Transfer to Parallel Session Rooms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WED SESSION BLOCK 1: 10:15–11:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot I (10:15–11:00)</p>
+  <div class="sessions-grid">
+
+    <!-- Track A -->
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Laminar Flames, Instabilities &amp; Fundamental Combustion Physics</div>
+        <div class="session-time-badge">10:15 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#10</div>
+          <div class="paper-body">
+            <div class="paper-title">Effect of Time-Periodic Forcing on Intrinsically Unstable Flame Fronts</div>
+            <div class="paper-authors">A. Bordoni, A. J. Torregrosa, A. Broatch, J. García-Tiscar</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#28</div>
+          <div class="paper-body">
+            <div class="paper-title">New Propagation Regime for Flames with Low Fuel Lewis Number Below the Flammability Limit</div>
+            <div class="paper-authors">V.N. Kurdyumov, C. Jiménez, D. Fernández-Galisteo</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#32</div>
+          <div class="paper-body">
+            <div class="paper-title">Ignition by a Concentrated Heat Source near a Cold Wall: Flame Propagation above and below Flammability Limit</div>
+            <div class="paper-authors">R. Carmona, C. Jiménez, D. Fernández-Galisteo, V. N. Kurdyumov</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#60</div>
+          <div class="paper-body">
+            <div class="paper-title">Nonadiabatic Strained Premixed Flames with Non-Unity Lewis Numbers under Darcy's Law</div>
+            <div class="paper-authors">P. Rajamanickam, J. Daou</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track B -->
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Low-NOx &amp; Clean Combustion: Alternative Fuels and Emission Strategies</div>
+        <div class="session-time-badge">10:15 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#2</div>
+          <div class="paper-body">
+            <div class="paper-title">Steam-Diluted H₂ Rich-Quick-Mix-Lean Concept for Low-NOx Applications</div>
+            <div class="paper-authors">V. De Lauso, I. Langella</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#3</div>
+          <div class="paper-body">
+            <div class="paper-title">Novel CRN Approach to Model Mixing Non-uniformities in Gas Turbines</div>
+            <div class="paper-authors">R. Lamioni, A. Del Bono, L. Lucchese, R. Malpica Galassi, C. Galletti</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#4</div>
+          <div class="paper-body">
+            <div class="paper-title">Mechanisms of Emission Reduction in a Hydrogen-Enriched Kerosene Spray Combustion</div>
+            <div class="paper-authors">P. Rouco, K. Dave, A. Gangoli Rao, F. De Domenico, I. Langella</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#15</div>
+          <div class="paper-body">
+            <div class="paper-title">Gaseous Emission Response of Jet A-1 and HEFA-SAF Blends in a NexGen Burner</div>
+            <div class="paper-authors">A. Muhammed Raji, M.B.A. Manescau, K. Chetehouna, L. Lamoot</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Track C -->
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Numerical Combustion: Methods, Models &amp; CFD Applications</div>
+        <div class="session-time-badge">10:15 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#8</div>
+          <div class="paper-body">
+            <div class="paper-title">Evaluation of Diffusion Models on Hydrogen Combustion Using Hybrid Lattice Boltzmann Method</div>
+            <div class="paper-authors">M. Atcı, M. Karaca, Z. Song</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#16</div>
+          <div class="paper-body">
+            <div class="paper-title">Predictive Modeling of a Bluff-Body Stabilized Turbulent Flame</div>
+            <div class="paper-authors">X. Zou, A. Parente, S. Le Clainche</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#22</div>
+          <div class="paper-body">
+            <div class="paper-title">Parallel-in-Iteration Robust Multigrid Solver for 2D Coupled Reactive Flow Systems</div>
+            <div class="paper-authors">E. Tekin, M. Karaca, S.I. Martynenko</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#20</div>
+          <div class="paper-body">
+            <div class="paper-title">Reduced Order Model for Digital Twin with Application to On-Line Control of Large-Scale Industrial Furnace</div>
+            <div class="paper-authors">F. Cenvinzo, P. Domingo, L. Vervisch et al.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">11:00–11:30</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Coffee Break</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WED SESSION BLOCK 2: 11:30–13:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot II (11:30–13:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Hydrogen Combustion: Turbulent Flames, DNS &amp; Thermo-Diffusive Effects</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#29</div>
+          <div class="paper-body">
+            <div class="paper-title">Differential and Preferential Diffusion Effects in Partially Premixed Hydrogen Combustion: LES Considerations</div>
+            <div class="paper-authors">N. Swaminathan, C.D.K. Schumann, C.J. Li, J.C. Massey</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#30</div>
+          <div class="paper-body">
+            <div class="paper-title">DNS of Premixed Hydrogen–Air Flames Subject to Thermo-Diffusive Effects in Turbulent Channel Flow (Reτ = 530)</div>
+            <div class="paper-authors">A. Gruber, F. Rong, M. Schneider, H. Nicolai, C. Hasse</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#43</div>
+          <div class="paper-body">
+            <div class="paper-title">Modeling Hydrogen–Air Autoignition in Confined Stagnation-Point Flows</div>
+            <div class="paper-authors">F. Fruzza, S. Al Kassar, R. Lamioni, A. Attili, C. Galletti</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#45</div>
+          <div class="paper-body">
+            <div class="paper-title">Finite-Rate and Manifold Based Simulations of Thermodiffusively Unstable Turbulent Premixed Flame</div>
+            <div class="paper-authors">C. Matteucci, D. Cavalieri, D. Schintu, P.E. Lapenna, F. Creta</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#56</div>
+          <div class="paper-body">
+            <div class="paper-title">Scaling Laws Using Numerical Dispersion Relations for Intrinsic Flame Instabilities in Hydrogen-Based Fuels</div>
+            <div class="paper-authors">T. Lehmann, T. L. Howarth, A. Attili, M. Gauding, H. Pitsch</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#66</div>
+          <div class="paper-body">
+            <div class="paper-title">Impact of Equivalence Ratio on Premixed Hydrogen–Air Flames Head-On Quenching and Noise Generation</div>
+            <div class="paper-authors">N. Misceo, F.G. Schiavone, S.M. Camporeale, D. Laera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Soot, Nanoparticles &amp; Reaction Kinetics of Hydrocarbons</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#7</div>
+          <div class="paper-body">
+            <div class="paper-title">Effect of DME Addition on Soot Formation in Ethane Coflow Diffusion Flames</div>
+            <div class="paper-authors">E. Bilge Çelik, A. E. Karataş, N. Eaves, M. Karaca</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#26</div>
+          <div class="paper-body">
+            <div class="paper-title">From Gas-Phase Chemistry to Heterogeneous Carbon Deposition: Kinetic Framework for Light Hydrocarbon Pyrolysis</div>
+            <div class="paper-authors">L. Giardini, L. Pratali Maffei, A. Cuoci, A. Frassoldati, T. Faravelli, M. Pelucchi</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#31</div>
+          <div class="paper-body">
+            <div class="paper-title">Impact of Fuel Structure and Flow on PAH Formation in Turbulent Flames</div>
+            <div class="paper-authors">H. Shariatmadar, R. P. Lindstedt</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#38</div>
+          <div class="paper-body">
+            <div class="paper-title">Oxygen Functionalization of Soot Particles in Oxygenated Fuel Combustion: The Ethanol Spread Flame Case</div>
+            <div class="paper-authors">V. Esposito, C. Russo, B. Apicella, M. Sirignano</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#51</div>
+          <div class="paper-body">
+            <div class="paper-title">Random Forest Identification of Soot Formation Indicators in an RP-3 Laminar Diffusion Flame</div>
+            <div class="paper-authors">E. Bilge Çelik, F. Göçer, M. Karaca</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#71</div>
+          <div class="paper-body">
+            <div class="paper-title">Surface Forces in Soot Evolution: Hamaker Constant and Structural Ordering</div>
+            <div class="paper-authors">A. Iannotta, L. Basta, G. De Falco, F. Picca, P. Minutolo, A. D'Anna, M. Commodo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Solid Fuels, Biomass &amp; Thermochemical Conversion Processes</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#18</div>
+          <div class="paper-body">
+            <div class="paper-title">TGA-FTIR Characterization of Olive Residue Gasification for Sustainable Energy Conversion</div>
+            <div class="paper-authors">A. Gürz, V. Bhaskar Reddy, M. Karaca</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#57</div>
+          <div class="paper-body">
+            <div class="paper-title">Tailoring Phenolic Content in Bio-Oils Through Catalytic Fast Pyrolysis</div>
+            <div class="paper-authors">A. Capasso, R. Migliaccio, A. Basco, B. Ciccone, G. Ruoppolo et al.</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#59</div>
+          <div class="paper-body">
+            <div class="paper-title">Valorization of an Industrial Slurry via Fluidized Bed Processes</div>
+            <div class="paper-authors">M.C. Marchionni, F. Miccio, L. Polchri, E. Papa, A. Zoppis et al.</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#64</div>
+          <div class="paper-body">
+            <div class="paper-title">Kinetic Modeling of the Catalytic Effects of Potassium Salts on Cellulose Pyrolysis</div>
+            <div class="paper-authors">J. Ren, R. Caraccio, A. Frassoldati, T. Faravelli, M. Pelucchi</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#67</div>
+          <div class="paper-body">
+            <div class="paper-title">Eulerian–Eulerian CFD Modeling of Polyethylene Pyrolysis in Fluidized Beds for Plastic Thermochemical Recycling</div>
+            <div class="paper-authors">X. Guan, A. Locaspi, E. Cipriano, R. Caraccio, A. Cuoci</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#70</div>
+          <div class="paper-body">
+            <div class="paper-title">Modeling of the Gasification of a Biomass Particle</div>
+            <div class="paper-authors">R. Caraccio, C. Aresi, A. Frassoldati, T. Faravelli</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">13:00–14:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div>
+          <div class="event-name">Lunch Break — Women in Combustion Networking Lunch</div>
+          <div class="event-speaker">Sponsored luncheon for early-career and senior women researchers</div>
+        </div>
+        <div class="event-tag">Networking</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">14:00–15:00</div>
+    <div class="event-col">
+      <div class="event-block plenary">
+        <div>
+          <div class="event-name">Plenary Lecture — Francesco Creta</div>
+          <div class="event-speaker">CFD, Turbulence &amp; Combustion Instabilities</div>
+        </div>
+        <div class="event-tag">Keynote</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">15:00–15:15</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Break &amp; Transfer to Parallel Session Rooms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WED SESSION BLOCK 3: 15:15–16:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot III (15:15–16:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Ammonia &amp; Hydrogen Blends: Kinetics, Flame Structure &amp; Emissions</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#1</div>
+          <div class="paper-body">
+            <div class="paper-title">Cross-Interactions in the Combustion Chemistry of NH₃/CH₃OH/H₂ Blends</div>
+            <div class="paper-authors">A. Ruiz-Gutiérrez, I. de Diego, M.U. Alzueta</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#69</div>
+          <div class="paper-body">
+            <div class="paper-title">Mixture-Dependent Nature of Ammonia Thermal Decomposition: The Role of Bath Gas and Initial Composition</div>
+            <div class="paper-authors">T. Dinelli, B.Y. Belal, A. Elkhazraji, S.A. Alturaifi, A. Stagni</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#48</div>
+          <div class="paper-body">
+            <div class="paper-title">Experimental Investigation of Flashback Limits in H₂/NH₃/Air Flames: Influence of Burner Size and Material</div>
+            <div class="paper-authors">R. Hernández-Sánchez, M. Sánchez Sanz</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#53</div>
+          <div class="paper-body">
+            <div class="paper-title">Chemical-Kinetic Simulation of Hydrogen Generation via Ammonia Thermal Partial Oxidation in a Microchannel Reactor</div>
+            <div class="paper-authors">D. Fernández-Galisteo, E. Fernández-Tarrazo, C. Jiménez, V.N. Kurdyumov</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Spray, Droplet Dynamics &amp; Supercritical Combustion</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#34</div>
+          <div class="paper-body">
+            <div class="paper-title">Evaporation Dynamics and Soot Formation of HEFA-SPK and Jet A Fuel Droplets at Elevated Temperatures</div>
+            <div class="paper-authors">Á. Muelas, T. Poonawala, J. Ballester</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#41</div>
+          <div class="paper-body">
+            <div class="paper-title">A Phase-Change Model for Liquid-Fueled Detonation</div>
+            <div class="paper-authors">L. Angelilli, V. Raman</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#54</div>
+          <div class="paper-body">
+            <div class="paper-title">Flamelet-Based Modeling of High-Pressure Cryogenic Methane/Oxygen Flames</div>
+            <div class="paper-authors">D. Schintu, D. Cavalieri, F. Creta, P.E. Lapenna</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#68</div>
+          <div class="paper-body">
+            <div class="paper-title">Spray Characteristics of H₂-Enriched Jet A1 and HEFA-SAF/Jet A1 Blend in a Low-Swirl Combustor</div>
+            <div class="paper-authors">E.A. Scelzo, S. Singh, F. Picca, M. Commodo, S.R. Harth, A. D'Anna, D. Trimis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Gas Turbine Combustion: Simulations, Instabilities &amp; Advanced Burner Design</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#35</div>
+          <div class="paper-body">
+            <div class="paper-title">Thermo-Diffusive Effects Saturation in Turbulent Premixed Partially Cracked Ammonia Flames</div>
+            <div class="paper-authors">R. Intranuovo, S. Zitouni, F.G. Schiavone, P. Bréquigny, C. Mounaïm-Rousselle, D. Laera</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#36</div>
+          <div class="paper-body">
+            <div class="paper-title">Thermoacoustic Analysis of a Micro Gas Turbine Using Large Eddy Simulations</div>
+            <div class="paper-authors">V. Albos, E.B. Porcelli, C. Vankelekom, S.M. Camporeale, D. Laera, W. De Paepe</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#24</div>
+          <div class="paper-body">
+            <div class="paper-title">Assessment of Hydrogen Efficiency Functions for the Thickened Flame Model at Gas Turbine Relevant Conditions</div>
+            <div class="paper-authors">M. Ballini Berlincioni, S. Castellani, M. Amerighi, R. Meloni, W. Song, A. Gruber, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#61</div>
+          <div class="paper-body">
+            <div class="paper-title">Experimental Investigation of Novel Non-Premixed Hydrogen Burner</div>
+            <div class="paper-authors">S. Galeotti, A. Picchi, A. Ballotti, K. Donner, A. Jocher, A. Andreini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">16:00–16:30</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Coffee Break</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WED SESSION BLOCK 4: 16:30–18:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot IV (16:30–18:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Turbulent Combustion Modeling: LES, DNS &amp; Multi-Regime Approaches</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#12</div>
+          <div class="paper-body">
+            <div class="paper-title">Incoming Flow Characteristics Modeling for Exit Boundary Condition Improvement in Channel Flows</div>
+            <div class="paper-authors">D. Rodríguez-Gutiérrez, R. Gómez-Miguel, E. Fernández-Tarrazo, M. Sánchez-Sanz</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#13</div>
+          <div class="paper-body">
+            <div class="paper-title">LES of a Non-Premixed NH₃/H₂/N₂ Flame at Elevated Pressure Using Stochastic Fields</div>
+            <div class="paper-authors">W. Liu, W. P. Jones</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#55</div>
+          <div class="paper-body">
+            <div class="paper-title">Extending Tabulated Chemistry Methods toward Multi-Regime Combustion</div>
+            <div class="paper-authors">A. Surapaneni, C. Guillamón, D. Mira</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#33</div>
+          <div class="paper-body">
+            <div class="paper-title">Chemiluminescence from Hydrogen-Methane Laminar Premixed Flames: Experiments and Numerical Comparison</div>
+            <div class="paper-authors">K. Zeb, A. Muelas, J. Ballester</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#44</div>
+          <div class="paper-body">
+            <div class="paper-title">Numerical Investigation on Thermal Characteristics of a Multi-Hole Burner Fed with H₂-Enriched Mixtures</div>
+            <div class="paper-authors">S. Yilmaz, R. Lamioni, F. Fruzza, K. Bayramoğlu, C. Galletti</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#63</div>
+          <div class="paper-body">
+            <div class="paper-title">Numerical Analysis of Lean Premixed Turbulent Hydrogen Flame Dynamics Under High Strain</div>
+            <div class="paper-authors">E. Böncü, E.B. Şenel, M. Désor, W. Polifke, I. Langella</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">CO₂ Capture, Pollutant Reduction &amp; Environmental Combustion Technologies</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#21</div>
+          <div class="paper-body">
+            <div class="paper-title">Evaluation of K₂CO₃-Impregnated Amberlite for CO₂ Capture On-Board Ships</div>
+            <div class="paper-authors">M. Balsamo, F. Hassan, F. Montagnaro, A. Erto</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#11</div>
+          <div class="paper-body">
+            <div class="paper-title">Direct Numerical Simulation of High-Pressure Ammonia Combustion in a MILD-RQL Dual-Stage Burner</div>
+            <div class="paper-authors">M. Cimini, D. Cecere, E. Giacomazzi</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#47</div>
+          <div class="paper-body">
+            <div class="paper-title">Real-Time Multi-Species Monitoring of Unstable Combustion Regimes via 4 Hz Raman Gas Analysis</div>
+            <div class="paper-authors">R. Dal Moro, M.V. Manna, F. Melison, G.B. Ariemma, V. Rosati, V. Castro, L. Cocola, P. Sabia, L. Poletto</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#65</div>
+          <div class="paper-body">
+            <div class="paper-title">High-Temperature Gas-Phase Functionalization of Soot in a Post-Flame Tubular Reactor: Oxidation and Amination</div>
+            <div class="paper-authors">A. Caputo, B. Apicella, A. Maaoui, M.M. Oliano, C. Russo, M. Sirignano</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#40</div>
+          <div class="paper-body">
+            <div class="paper-title">Scalable Functionalization of Carbon Black and Soot for Li-Ion Batteries</div>
+            <div class="paper-authors">B. Visone, C. Russo, B. Apicella</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#14</div>
+          <div class="paper-body">
+            <div class="paper-title">Oxygen Transport Limitation Through the Ionomer Film in PEM Fuel Cells</div>
+            <div class="paper-authors">P.L. Garcia-Ybarra, Á. García-Corral, S. Martin, J.L. Castillo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Propulsion Systems: Engines, Reforming &amp; Alternative Energy Vectors</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#9</div>
+          <div class="paper-body">
+            <div class="paper-title">Novel Simulation Strategies for Homogeneous RCCI Engine Based on Chemical Kinetics</div>
+            <div class="paper-authors">L.M. Grundl, P.K. Sundaram</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#19</div>
+          <div class="paper-body">
+            <div class="paper-title">Experimental Performance of a Hydrogen-Fuelled Spark-Ignition Engine for Light-Duty Applications</div>
+            <div class="paper-authors">F. Tinaut, R. Novella, J. Martín, J. Gómez-Soriano</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#46</div>
+          <div class="paper-body">
+            <div class="paper-title">Thermodynamic Analysis of Hydrogen-Enriched Diesel Combustion Using a Single-Zone Engine Cycle Model</div>
+            <div class="paper-authors">K. Bayramoğlu, S. Yilmaz, K.D. Kaya, T. Bayramoğlu</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#52</div>
+          <div class="paper-body">
+            <div class="paper-title">Autoignition Prediction in a Dual-Fuel H₂/Diesel CI Engine</div>
+            <div class="paper-authors">D. Episcopo, S. Rossetti, E. Mancaruso, G. Saponaro, S.M. Camporeale, D. Laera</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#49</div>
+          <div class="paper-body">
+            <div class="paper-title">Hydrogen Production Enhancement in SMR Reactors: Parametric CFD Analysis of Honeycomb Fin Design</div>
+            <div class="paper-authors">M. Kapan, S. Yılmaz, K. Bayramoğlu</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#72</div>
+          <div class="paper-body">
+            <div class="paper-title">Impact of CH₄/H₂ Blends on the Entrainment Ratio of Domestic Cooktop Burners</div>
+            <div class="paper-authors">M. Galbusieri, F. Cozzi, A. Cuoci</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">17:00–18:00</div>
+    <div class="event-col">
+      <div class="event-block special">
+        <div>
+          <div class="event-name">ASICI Business Meeting &amp; D'Alessio Award Ceremony</div>
+        </div>
+        <div class="event-tag">Association</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">18:00–19:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div><div class="event-name">Early Career Researcher Mixer</div></div>
+        <div class="event-tag">Networking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     THURSDAY 28 MAY
+══════════════════════════════════════════════════════ -->
+<section class="day-panel" id="day-thu">
+  <h2 class="day-heading">Thursday, 28 May 2026 <span>Special Session &amp; Poster Day</span></h2>
+
+  <div class="timeline-row">
+    <div class="time-col">08:00–09:00</div>
+    <div class="event-col">
+      <div class="event-block break"><span>Registration</span></div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">09:00–10:00</div>
+    <div class="event-col">
+      <div class="event-block special">
+        <div>
+          <div class="event-name">Special Session Dedicated to Prof. Amable Liñán</div>
+          <div class="event-speaker">Distinguished lectures in honor of Prof. Liñán's contributions to combustion science</div>
+        </div>
+        <div class="event-tag">Special</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THU SESSION BLOCK 1: 10:00–11:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot V (10:00–11:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Fire, Ignition &amp; Flame Spread Phenomena</div>
+        <div class="session-time-badge">10:00 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#25</div>
+          <div class="paper-body">
+            <div class="paper-title">Bridging Small-Scale and Large-Scale Flame Spread in Halogen-Free Power Cables</div>
+            <div class="paper-authors">A. Alonso, M. Lázaro, N. Generó, E. Pérez, E. Opazo, D. Alvear</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#6</div>
+          <div class="paper-body">
+            <div class="paper-title">Gibbs Energy Minimisation by Stochastic and Geometrical Optimisation Methods for Fuel Reforming Processes</div>
+            <div class="paper-authors">M. Turhan Çoban, S. Yilmaz, K. Bayramoğlu, H. Atalay</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#23</div>
+          <div class="paper-body">
+            <div class="paper-title">Photocatalytic Dry Reforming of CH₄</div>
+            <div class="paper-authors">F. Miccio, M. Boscherini, I. Zanoni</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Detonation, Explosion &amp; Supersonic Combustion</div>
+        <div class="session-time-badge">10:00 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#5</div>
+          <div class="paper-body">
+            <div class="paper-title">Observations on Scale Effects in Hydrogen/Air Explosions Using High-Fidelity Numerical Simulations</div>
+            <div class="paper-authors">M. Bambauer, J. Hasslberger, M. Klein</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#27</div>
+          <div class="paper-body">
+            <div class="paper-title">Flame Structure and Sub-Grid Turbulence–Chemistry Interaction in a Cavity-Stabilised Ramjet</div>
+            <div class="paper-authors">S. Navarro-Martinez, T.-H. Un</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#58</div>
+          <div class="paper-body">
+            <div class="paper-title">GPU-Accelerated Combustion Simulations for High-Speed Flows</div>
+            <div class="paper-authors">D. Mira, J.M. Klein</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#62</div>
+          <div class="paper-body">
+            <div class="paper-title">High-Fidelity LES of Supersonic Combustion in Hydrogen–Air Coflow Jets</div>
+            <div class="paper-authors">F. Zanetti, M. Fratini, M. Cimini, D. Cecere, E. Giacomazzi, M. Bernardini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Machine Learning &amp; Data-Driven Combustion</div>
+        <div class="session-time-badge">10:00 – 11:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#42</div>
+          <div class="paper-body">
+            <div class="paper-title">Extrapolation Capabilities of Data-Driven Methods for Combustion LES</div>
+            <div class="paper-authors">S. Sureshbabu, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#17</div>
+          <div class="paper-body">
+            <div class="paper-title">A Model of a Horizontal Iron Aerosol Flame Attached to a Planar Holder</div>
+            <div class="paper-authors">K. Mehrabi, F. J. Higuera</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#50</div>
+          <div class="paper-body">
+            <div class="paper-title">Study of H₂ Yield in Catalytic Fluidized Bed Gasification in Different Oxygen Atmospheres</div>
+            <div class="paper-authors">F. Suzzi, L. Polchri, A. Gondolini, A. Fasolini, F. Basile, A. Sanson, F. Miccio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">11:00–12:30</div>
+    <div class="event-col">
+      <div class="event-block break">
+        <span>Coffee Break &amp; Poster Session I — Hall Fondi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- THU SESSION BLOCK 2: 12:30–13:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot VI (12:30–13:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Reaction Kinetics of Complex Fuels &amp; Emerging Chemical Systems</div>
+        <div class="session-time-badge">12:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#37</div>
+          <div class="paper-body">
+            <div class="paper-title">Modeling Jet-A1 Combustion in Afterburners with an Optimized Two-Step Global Mechanism</div>
+            <div class="paper-authors">G. Generini, S. Castellani, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#39</div>
+          <div class="paper-body">
+            <div class="paper-title">High-Fidelity Numerical Investigation of a Novel Air–Hydrogen Rotating Detonation Combustor Geometry</div>
+            <div class="paper-authors">Q. Delaunay, A. Bruce, M. Bohon, A. Andreini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Hydrogen Production, Gasification &amp; Fuel Processing</div>
+        <div class="session-time-badge">12:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#50</div>
+          <div class="paper-body">
+            <div class="paper-title">Study of H₂ Yield in Catalytic Fluidized Bed Gasification in Different Oxygen Atmospheres</div>
+            <div class="paper-authors">F. Suzzi, L. Polchri, A. Gondolini, A. Fasolini, F. Basile, A. Sanson, F. Miccio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Combustion Diagnostics &amp; Experimental Methods</div>
+        <div class="session-time-badge">12:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#47</div>
+          <div class="paper-body">
+            <div class="paper-title">Real-Time Multi-Species Monitoring of Unstable Combustion Regimes via 4 Hz Raman Gas Analysis</div>
+            <div class="paper-authors">R. Dal Moro, M.V. Manna, F. Melison, G.B. Ariemma, P. Sabia, L. Poletto et al.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">13:00–14:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div>
+          <div class="event-name">Lunch Break &amp; Poster Session II</div>
+          <div class="event-speaker">Sponsored lunches — Poster Hall Open</div>
+        </div>
+        <div class="event-tag">Break</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">14:00–15:00</div>
+    <div class="event-col">
+      <div class="event-block plenary">
+        <div>
+          <div class="event-name">Plenary Lecture — Peyman Givi</div>
+          <div class="event-speaker">Quantum Computing &amp; PDF Methods in Combustion</div>
+        </div>
+        <div class="event-tag">Keynote</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">15:00–15:15</div>
+    <div class="event-col">
+      <div class="event-block break"><span>Break &amp; Transfer</span></div>
+    </div>
+  </div>
+
+  <!-- THU SESSION BLOCK 3: 15:15–16:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot VII (15:15–16:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Flame Dynamics: Stability, Quenching &amp; Acoustic Interaction</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#66</div>
+          <div class="paper-body">
+            <div class="paper-title">Impact of Equivalence Ratio on Premixed H₂–Air Flames Head-On Quenching and Noise Generation</div>
+            <div class="paper-authors">N. Misceo, F.G. Schiavone, S.M. Camporeale, D. Laera</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#36</div>
+          <div class="paper-body">
+            <div class="paper-title">Thermoacoustic Analysis of a Micro Gas Turbine via LES</div>
+            <div class="paper-authors">V. Albos, E.B. Porcelli, C. Vankelekom, S.M. Camporeale, D. Laera, W. De Paepe</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#10</div>
+          <div class="paper-body">
+            <div class="paper-title">Effect of Time-Periodic Forcing on Intrinsically Unstable Flame Fronts</div>
+            <div class="paper-authors">A. Bordoni, A.J. Torregrosa, A. Broatch, J. García-Tiscar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Hydrogen &amp; Alternative Fuel Combustion: Burners and Lab-Scale Devices</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#61</div>
+          <div class="paper-body">
+            <div class="paper-title">Experimental Investigation of Novel Non-Premixed Hydrogen Burner</div>
+            <div class="paper-authors">S. Galeotti, A. Picchi, A. Ballotti, K. Donner, A. Jocher, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#72</div>
+          <div class="paper-body">
+            <div class="paper-title">Impact of CH₄/H₂ Blends on the Entrainment Ratio of Domestic Cooktop Burners</div>
+            <div class="paper-authors">M. Galbusieri, F. Cozzi, A. Cuoci</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#33</div>
+          <div class="paper-body">
+            <div class="paper-title">Chemiluminescence from Hydrogen–Methane Laminar Premixed Flames: Experiments and Numerical Comparison</div>
+            <div class="paper-authors">K. Zeb, A. Muelas, J. Ballester</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Advanced Engine Concepts &amp; Rotating Detonation</div>
+        <div class="session-time-badge">15:15 – 16:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#39</div>
+          <div class="paper-body">
+            <div class="paper-title">High-Fidelity Numerical Investigation of a Novel Air–Hydrogen Rotating Detonation Combustor</div>
+            <div class="paper-authors">Q. Delaunay, A. Bruce, M. Bohon, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#37</div>
+          <div class="paper-body">
+            <div class="paper-title">Modeling Jet-A1 Combustion in Afterburners with an Optimized Two-Step Global Mechanism</div>
+            <div class="paper-authors">G. Generini, S. Castellani, A. Andreini</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#52</div>
+          <div class="paper-body">
+            <div class="paper-title">Autoignition Prediction in a Dual-Fuel H₂/Diesel CI Engine</div>
+            <div class="paper-authors">D. Episcopo, S. Rossetti, E. Mancaruso, G. Saponaro, S.M. Camporeale, D. Laera</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">16:00–16:30</div>
+    <div class="event-col">
+      <div class="event-block break"><span>Coffee Break &amp; Poster Session III</span></div>
+    </div>
+  </div>
+
+  <!-- THU SESSION BLOCK 4: 16:30–18:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot VIII (16:30–18:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Thermochemical Recycling, Waste &amp; Circular Combustion</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#67</div>
+          <div class="paper-body">
+            <div class="paper-title">Eulerian–Eulerian CFD Modeling of Polyethylene Pyrolysis in Fluidized Beds for Plastic Thermochemical Recycling</div>
+            <div class="paper-authors">X. Guan, A. Locaspi, E. Cipriano, R. Caraccio, A. Cuoci</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#59</div>
+          <div class="paper-body">
+            <div class="paper-title">Valorization of an Industrial Slurry via Fluidized Bed Gasification</div>
+            <div class="paper-authors">M.C. Marchionni, F. Miccio, L. Polchri et al.</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#57</div>
+          <div class="paper-body">
+            <div class="paper-title">Tailoring Phenolic Content in Bio-Oils Through Catalytic Fast Pyrolysis</div>
+            <div class="paper-authors">A. Capasso, R. Migliaccio, A. Basco, B. Ciccone, G. Ruoppolo et al.</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#70</div>
+          <div class="paper-body">
+            <div class="paper-title">Modeling of the Gasification of a Biomass Particle</div>
+            <div class="paper-authors">R. Caraccio, C. Aresi, A. Frassoldati, T. Faravelli</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">Soot Formation, Carbon Nanostructures &amp; Post-Flame Chemistry</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#65</div>
+          <div class="paper-body">
+            <div class="paper-title">High-Temperature Gas-Phase Functionalization of Soot: Oxidation and Amination</div>
+            <div class="paper-authors">A. Caputo, B. Apicella, A. Maaoui, M.M. Oliano, C. Russo, M. Sirignano</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#38</div>
+          <div class="paper-body">
+            <div class="paper-title">Oxygen Functionalization of Soot Particles in Oxygenated Fuel Combustion: Ethanol Spread Flame</div>
+            <div class="paper-authors">V. Esposito, C. Russo, B. Apicella, M. Sirignano</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#40</div>
+          <div class="paper-body">
+            <div class="paper-title">Scalable Functionalization of Carbon Black and Soot for Li-Ion Batteries</div>
+            <div class="paper-authors">B. Visone, C. Russo, B. Apicella</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#71</div>
+          <div class="paper-body">
+            <div class="paper-title">Surface Forces in Soot Evolution: Hamaker Constant and Structural Ordering</div>
+            <div class="paper-authors">A. Iannotta, L. Basta, G. De Falco, F. Picca, P. Minutolo, A. D'Anna, M. Commodo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">Multi-Physics Phenomena &amp; Innovative Combustion Concepts</div>
+        <div class="session-time-badge">16:30 – 18:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#14</div>
+          <div class="paper-body">
+            <div class="paper-title">Oxygen Transport Limitation Through the Ionomer Film in PEM Fuel Cells</div>
+            <div class="paper-authors">P.L. Garcia-Ybarra, Á. García-Corral, S. Martin, J.L. Castillo</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#23</div>
+          <div class="paper-body">
+            <div class="paper-title">Photocatalytic Dry Reforming of CH₄</div>
+            <div class="paper-authors">F. Miccio, M. Boscherini, I. Zanoni</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#17</div>
+          <div class="paper-body">
+            <div class="paper-title">A Model of a Horizontal Iron Aerosol Flame Attached to a Planar Holder</div>
+            <div class="paper-authors">K. Mehrabi, F. J. Higuera</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#42</div>
+          <div class="paper-body">
+            <div class="paper-title">Extrapolation Capabilities of Data-Driven Methods for Combustion LES</div>
+            <div class="paper-authors">S. Sureshbabu, A. Andreini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">20:00–23:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div>
+          <div class="event-name">Social Dinner — Bistrot dell'Opera, Loggiato Opera Primaziale</div>
+        </div>
+        <div class="event-tag">Gala</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FRIDAY 29 MAY
+══════════════════════════════════════════════════════ -->
+<section class="day-panel" id="day-fri">
+  <h2 class="day-heading">Friday, 29 May 2026 <span>Closing Day</span></h2>
+
+  <div class="timeline-row">
+    <div class="time-col">08:00–09:00</div>
+    <div class="event-col">
+      <div class="event-block break"><span>Registration</span></div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">09:00–10:00</div>
+    <div class="event-col">
+      <div class="event-block plenary">
+        <div>
+          <div class="event-name">Plenary Lecture — Roberto Solimene</div>
+          <div class="event-speaker">TBD</div>
+        </div>
+        <div class="event-tag">Keynote</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">10:00–11:00</div>
+    <div class="event-col">
+      <div class="event-block special">
+        <div>
+          <div class="event-name">Industrial Round Table</div>
+          <div class="event-speaker">Invited Speakers — Industry Perspectives on Combustion Technologies</div>
+        </div>
+        <div class="event-tag">Round Table</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">11:00–11:30</div>
+    <div class="event-col">
+      <div class="event-block break"><span>Coffee Break</span></div>
+    </div>
+  </div>
+
+  <!-- FRI SESSION BLOCK 1: 11:30–13:00 -->
+  <p class="parallel-label">▸ Parallel Oral Sessions — Slot IX (11:30–13:00)</p>
+  <div class="sessions-grid">
+
+    <div class="session-card">
+      <div class="session-header sa">
+        <div class="session-room">Track A · Room 1</div>
+        <div class="session-title">Kinetics of Nitrogen Compounds &amp; Renewable Fuel Chemistry</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sa">#1</div>
+          <div class="paper-body">
+            <div class="paper-title">Cross-Interactions in the Combustion Chemistry of NH₃/CH₃OH/H₂ Blends</div>
+            <div class="paper-authors">A. Ruiz-Gutiérrez, I. de Diego, M.U. Alzueta</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#69</div>
+          <div class="paper-body">
+            <div class="paper-title">Mixture-Dependent Nature of Ammonia Thermal Decomposition: Role of Bath Gas and Initial Composition</div>
+            <div class="paper-authors">T. Dinelli, B.Y. Belal, A. Elkhazraji, S.A. Alturaifi, A. Stagni</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#26</div>
+          <div class="paper-body">
+            <div class="paper-title">From Gas-Phase Chemistry to Heterogeneous Carbon Deposition: Validation of a Kinetic Framework for Light Hydrocarbon Pyrolysis</div>
+            <div class="paper-authors">L. Giardini, L. Pratali Maffei, A. Cuoci, A. Frassoldati, T. Faravelli, M. Pelucchi</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sa">#64</div>
+          <div class="paper-body">
+            <div class="paper-title">Kinetic Modeling of the Catalytic Effects of Potassium Salts on Cellulose Pyrolysis</div>
+            <div class="paper-authors">J. Ren, R. Caraccio, A. Frassoldati, T. Faravelli, M. Pelucchi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sb">
+        <div class="session-room">Track B · Room 2</div>
+        <div class="session-title">SAF, Biofuels &amp; Sustainable Aviation Combustion</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sb">#15</div>
+          <div class="paper-body">
+            <div class="paper-title">Gaseous Emission Response of Jet A-1 and HEFA-SAF Blends in a NexGen Burner</div>
+            <div class="paper-authors">A. Muhammed Raji, M.B.A. Manescau, K. Chetehouna, L. Lamoot</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#34</div>
+          <div class="paper-body">
+            <div class="paper-title">Evaporation Dynamics and Soot Formation of HEFA-SPK and Jet A Fuel Droplets at Elevated Temperatures</div>
+            <div class="paper-authors">Á. Muelas, T. Poonawala, J. Ballester</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#68</div>
+          <div class="paper-body">
+            <div class="paper-title">Spray Characteristics of H₂-Enriched Jet A1 and HEFA-SAF/Jet A1 Blend in a Low-Swirl Combustor</div>
+            <div class="paper-authors">E.A. Scelzo, S. Singh, F. Picca, M. Commodo, S.R. Harth, A. D'Anna, D. Trimis</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sb">#4</div>
+          <div class="paper-body">
+            <div class="paper-title">Mechanisms of Emission Reduction in a Hydrogen-Enriched Kerosene Spray Combustion</div>
+            <div class="paper-authors">P. Rouco, K. Dave, A. Gangoli Rao, F. De Domenico, I. Langella</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-card">
+      <div class="session-header sc">
+        <div class="session-room">Track C · Room 3</div>
+        <div class="session-title">GPU Computing, High-Performance Methods &amp; Digital Twins</div>
+        <div class="session-time-badge">11:30 – 13:00</div>
+      </div>
+      <div class="papers-list">
+        <div class="paper-item">
+          <div class="paper-num sc">#58</div>
+          <div class="paper-body">
+            <div class="paper-title">GPU-Accelerated Combustion Simulations for High-Speed Flows</div>
+            <div class="paper-authors">D. Mira, J.M. Klein</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#20</div>
+          <div class="paper-body">
+            <div class="paper-title">Reduced Order Model for Digital Twin with Application to On-Line Control of Large-Scale Industrial Furnace</div>
+            <div class="paper-authors">F. Cenvinzo, P. Domingo, L. Vervisch et al.</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#22</div>
+          <div class="paper-body">
+            <div class="paper-title">Parallel-in-Iteration Robust Multigrid Solver for 2D Coupled Reactive Flow Systems</div>
+            <div class="paper-authors">E. Tekin, M. Karaca, S.I. Martynenko</div>
+          </div>
+        </div>
+        <div class="paper-item">
+          <div class="paper-num sc">#42</div>
+          <div class="paper-body">
+            <div class="paper-title">Extrapolation Capabilities of Data-Driven Methods for Combustion LES</div>
+            <div class="paper-authors">S. Sureshbabu, A. Andreini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">12:00–13:00</div>
+    <div class="event-col">
+      <div class="event-block special">
+        <div>
+          <div class="event-name">Closure Ceremony &amp; Best Presentation Awards</div>
+          <div class="event-speaker">Conference Summary · Award Announcements · Closing Remarks</div>
+        </div>
+        <div class="event-tag">Ceremony</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-row">
+    <div class="time-col">13:00–14:00</div>
+    <div class="event-col">
+      <div class="event-block social">
+        <div>
+          <div class="event-name">Farewell Lunch</div>
+          <div class="event-speaker">Villa Fondi — Main Terrace</div>
+        </div>
+        <div class="event-tag">Farewell</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <strong>ASICI · SEIC 2026</strong> — Villa Fondi, Sorrento, Italy — 26–29 May 2026<br>
+  <span style="opacity:.6; font-size:10px;">Program subject to change. Please check the official website for updates.</span>
+</footer>
+
+<script>
+  function showDay(id) {
+    document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('day-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
